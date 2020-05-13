@@ -8,5 +8,6 @@ I'm sure there's a more elegant way to do this (feel free to share), but I could
 It checks to see how much private memory is being used by zoom. I found that the value below was a reliable indicator that my video was on. 
 
 
-```$command="C:\Program Files (x86)\FAHClient\FAHClient.exe" ; $x="zoom" |ForEach-Object{Get-Process -name $_ | Measure-Object PrivateMemorySize -sum | Select-Object @{Name="Name";Expression = {$pv.name}}, Sum}; echo $x.sum;if ($x.sum -gt 200000000){$arguments="--send-pause";echo "zoom running, pausing";Start-Process $command $arguments} else {$arguments="--send-unpause";echo "zoom not running, folding";;Start-Process $command $arguments}
+$command="C:\Program Files (x86)\FAHClient\FAHClient.exe" ; $x="zoom" |ForEach-Object{Get-Process -name $_ | Measure-Object PrivateMemorySize -sum | Select-Object @{Name="Name";Expression = {$pv.name}}, Sum}; echo $x.sum;if ($x.sum -gt 200000000){$arguments="--send-pause";echo "zoom running, pausing";Start-Process $command $arguments} else {$arguments="--send-unpause";echo "zoom not running, folding";;Start-Process $command $arguments}
+
 Just have task scheduler run it every minute.
